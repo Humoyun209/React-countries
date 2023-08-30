@@ -7,37 +7,52 @@ import { Fragment, useContext, useEffect, useState } from "react";
 
 import { searchByCountry, ALL_COUNTRIES, filterByRegion } from "../config";
 
-const HomePage = () => {
-    const [countries, setCountries] = useState([]);
-
-    const { search, region } = useContext(SearchContext);
+const HomePage = ({countries, setCountries}) => {
+    const [filteredCountries, setFilteredCountries] = useState(countries)
 
     useEffect(() => {
-        axios.get(ALL_COUNTRIES).then(({ data }) => setCountries(data));
-    }, []);
-
-    useEffect(() => {
-        if (region) {
-            axios
-                .get(filterByRegion(region.value))
-                .then(({ data }) => setCountries(data));
-        }
-
-        if (search) {
-            axios
-                .get(searchByCountry(search))
-                .then(({ data }) => setCountries(data));
-        }
-
-        if (!search && !region.value) {
+        if (!countries.length) {
             axios.get(ALL_COUNTRIES).then(({ data }) => setCountries(data));
         }
-    }, [search, region.value]);
+    }, []);
+
+    // const { search, region } = useContext(SearchContext);
+
+    const handleSearch = (search, region) => {
+        let data = [...countries]
+        
+        console.log(countries);
+
+        if (search) {
+            data = data.filter(c => c.name.toLowerCase().includes(search.toLowerCase()))
+        }
+
+        if (region) {
+            data = data.filter(c => c.region.includes(region))
+        }
+
+        setFilteredCountries(data)
+
+    }
+
+    // useEffect(() => {
+    //     if (region) {
+    //         axios
+    //             .get(filterByRegion(region.value))
+    //             .then(({ data }) => setCountries(data));
+    //     }
+
+    //     if (search) {
+    //         axios
+    //             .get(searchByCountry(search))
+    //             .then(({ data }) => setCountries(data));
+    //     }
+    // }, [search, region.value]);
 
     return (
         <Fragment>
-            <Controls />
-            <List countries={countries} />;
+            <Controls onFilter={handleSearch} countries={countries}/>
+            <List countries={ filteredCountries } />
         </Fragment>
     );
 };

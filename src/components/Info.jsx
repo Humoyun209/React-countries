@@ -108,12 +108,12 @@ const Info = (props) => {
     const [neighbors, setNeighbors] = useState([]);
 
     useEffect(() => {
-      axios.get(getCountriesByCodes(borders)).then(({data}) => {
-        setNeighbors(data)
-      })
+      if (borders.length) {
+        axios.get(getCountriesByCodes(borders)).then(({data}) => {
+            setNeighbors(data)
+        })
+      }
     }, [borders]);
-
-    console.log(neighbors);
 
     return (
         <Wrapper>

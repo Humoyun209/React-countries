@@ -1,21 +1,26 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { searchByCountry } from "../config"
 import axios from "axios"
 import { Container } from "../components/Container"
 import Info from "../components/Info"
 import { Button } from "../components/Button"
+import { IoArrowBack } from "react-icons/io5"
 
 
 const DetailsPage = () => {
     const {name} = useParams()
+    const navigate = useNavigate()
+    
     const [country, setCountry] = useState('')
     useEffect(() => {
        axios( searchByCountry(name)).then(({data}) => setCountry(data[0]))
     }, [name])
+
+    const goBack = () => navigate(-1)
   return (
     <Container>
-      <Button style={{marginTop: '50px', padding: '5px 20px'}}>To Back</Button>
+      <Button onClick={goBack} style={{marginTop: '50px', padding: '5px 20px'}}><IoArrowBack /> Back</Button>
       <Info
         name={country.name}
         nativeName={country.nativeName}

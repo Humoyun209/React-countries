@@ -6,12 +6,9 @@ import { SearchContextProvider } from "./context/searchContext.jsx";
 import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
- <BrowserRouter>
-  <SearchContextProvider>
-   <React.StrictMode>
-    <App />
-   </React.StrictMode>
-   ,
-  </SearchContextProvider>
- </BrowserRouter>
+    <React.StrictMode>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </React.StrictMode>
 );

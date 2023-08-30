@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { IoMoon, IoMoonOutline } from 'react-icons/io5';
+import { useState, useEffect, Fragment } from 'react';
+import { Link, Outlet } from 'react-router-dom';
+import { IoMoon, IoMoonOutline, IoSunny, IoSunnyOutline } from 'react-icons/io5';
 
 import { Container } from './Container';
 
@@ -41,17 +41,20 @@ const Header = () => {
    document.body.setAttribute('data-theme', theme)
   }, [theme])
   return (
-    <HeaderEl>
-      <Container>
-        <Wrapper>
-          <Title to='/'>Where in the world</Title>
-          <ModeSwitcher onClick={toggleHandler}>
-            {theme === 'light' ? (<IoMoon size='14px'/>) : (<IoMoonOutline size='14px'/>)}
-            <span style={{marginLeft: '5px'}}>{theme} mode</span>
-          </ModeSwitcher>
-        </Wrapper>
-      </Container>
-    </HeaderEl>
+    <Fragment>
+      <HeaderEl>
+        <Container>
+          <Wrapper>
+            <Title to='/'>Where in the world</Title>
+            <ModeSwitcher onClick={toggleHandler}>
+              {theme === 'light' ? (<IoSunnyOutline size='16px'/>) : (<IoMoonOutline size='16px'/>)}
+              <span style={{marginLeft: '5px'}}>{theme} mode</span>
+            </ModeSwitcher>
+          </Wrapper>
+        </Container>
+      </HeaderEl>
+      <Outlet />
+    </Fragment>
   )
 }
 

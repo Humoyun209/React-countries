@@ -27,8 +27,17 @@ const Wrapper = styled.div`
   }
 `;
 
-const Controls = () => {
-  const {search, setSearch, region, setRegion} = useContext(SearchContext)
+const Controls = ({onFilter, countries}) => {
+  // const {search, setSearch, region, setRegion} = useContext(SearchContext)
+
+  const [search, setSearch] = useState('')
+  const [region, setRegion] = useState('')
+  
+  useEffect(() => {
+    const regionValue = region?.value || ''
+    onFilter(search, regionValue)
+  }, [search, region, countries])
+
   return (
     <Container>
       <Wrapper>

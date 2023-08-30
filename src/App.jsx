@@ -14,27 +14,18 @@ import NotFoundPage from "./pages/NotFoundPage";
 import TablePage from "./pages/TablePage";
 
 function App() {
-  // const [countries, setCountries] = useState([])
+    const [countries, setCountries] = useState([]);
 
-  // useEffect(() => {
-  //   axios.get(ALL_COUNTRIES).then(res => setCountries(res))
-  // }, [])
-
-  // axios.get(ALL_COUNTRIES).then(
-  //   (res) => console.log(res)
-  // )
-
-  return (
-    <Fragment>
-      <Header />
-      <Routes>
-        <Route index path="/" element={<HomePage />} />
-        <Route path="/countries/:name" element={<DetailsPage />} />
-        <Route path="/table" element={<TablePage/>} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </Fragment>
-  );
+    return (
+        <Routes>
+            <Route path="/" element={<Header />}>
+                <Route index element={<HomePage countries={countries} setCountries={setCountries}/>} />
+                <Route path="/countries/:name" element={<DetailsPage />} />
+                <Route path="/table" element={<TablePage />} />
+                <Route path="*" element={<NotFoundPage />} />
+            </Route>
+        </Routes>
+    );
 }
 
 export default App;
