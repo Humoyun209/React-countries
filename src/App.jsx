@@ -11,7 +11,6 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import DetailsPage from "./pages/DetailsPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import TablePage from "./pages/TablePage";
 
 function App() {
     const [countries, setCountries] = useState([]);
@@ -21,7 +20,6 @@ function App() {
             <Route path="/" element={<Header />}>
                 <Route index element={<HomePage countries={countries} setCountries={setCountries}/>} />
                 <Route path="/countries/:name" element={<DetailsPage />} />
-                <Route path="/table" element={<TablePage />} />
                 <Route path="*" element={<NotFoundPage />} />
             </Route>
         </Routes>
